@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bowling Simulator</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Adam">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+	<script>
+        // Team 1 en Team 2
+		var team1 = [];
+        team1[0] = {name: "Adam", score: 0};
+        team1[1] = {name: "Dennis", score: 0};
+        team1[2] = {name: "Joey", score: 0};
+        team1[3] = {name: "Ryan", score: 0};
+
+        var team2 = [];
+        team2[0] = {name: "Tom", score: 0};
+        team2[1] = {name: "Afzal", score: 0};
+        team2[2] = {name: "Anouar", score: 0};
+        team2[3] = {name: "Arevan", score: 0};
+
+        console.log("START GAME!!!");
+        console.log("");
+
+        // var round = 1 begint bij 1 anders krijg je round 0
+        for (var round = 1; round <= 10; round++) {
+            console.log("ROUND:", round);
+            console.log("");
+            console.log("TEAM 1:")
+            console.log("");
+            for (var i = 0; i < team1.length; i++) {
+                // de functie getRandomPin kiest een random getal van var pin = 10 en dat word pinsHit1
+                var pin = 10;
+                var pinsHit1 = getRandomPin(pin);
+
+                // pin = 10 dus 10 - pinsHit1 = pin je krijgt de overgebleven waarde terug
+                pin = pin - pinsHit1;
+
+                // de functie getRandomPin kiest een random getal van de overgebleven pins en dat word pinsHit2
+                var pinsHit2 = getRandomPin(pin);
+
+                // bij pinsHit1 + pinsHit2 worden de waardes bij elkaar opgeteld en dat word totalPins
+                var totalPins = pinsHit1 + pinsHit2;
+
+                // telt de score van alle rondes bij elkaar
+                team1[i].score += totalPins;
+
+                // als pinsHit1 gelijk aan 10 is krijg je een STRIKE melding terug
+                if (pinsHit1 == 10) {
+                    console.log(team1[i].name, "From Team 1 is up.");
+                    console.log("A STRIKE FOR", team1[i].name);
+                    console.log("That makes a total of", totalPins, "pins knocked over for", team1[i].name);
+                    console.log("");
+                }
+                // als totalPins gelijk aan 10 is krijg je een SPARE melding terug
+                else if (totalPins == 10) {
+                    console.log(team1[i].name, "From Team 1 is up.");
+                    console.log(team1[i].name, "Threw over", pinsHit1, "on his first throw.");
+                    console.log(team1[i].name, "Threw over", pinsHit2, "on his second throw.");
+                    console.log("A SPARE FOR", team1[i].name);
+                    console.log("That makes a total of", totalPins, "pins knocked over for", team1[i].name);
+                    console.log("");
+                }
+                // als pinsHit1 gelijk aan of minder dan 9 is of pinsHit2 gelijk aan of minder dan 9 is krijg je de standaard melding terug
+                else if (pinsHit1 <= 9 || pinsHit2 <= 9) {
+                    console.log(team1[i].name, "From Team 1 is up.");
+                    console.log(team1[i].name, "Threw over", pinsHit1, "on his first throw.");
+                    console.log(team1[i].name, "Threw over", pinsHit2, "on his second throw.");
+                    console.log("That makes a total of", totalPins, "pins knocked over for", team1[i].name);
+                    console.log("");
+                }
+            }
+            console.log("TEAM 2:")
+            console.log("");
+            for (var i = 0; i < team2.length; i++) {
+                var pin = 10;
+                var pinsHit1 = getRandomPin(pin);
+                pin = pin - pinsHit1;
+                var pinsHit2 = getRandomPin(pin);
+                var totalPins = pinsHit1 + pinsHit2;
+                team2[i].score += totalPins;
+                if (pinsHit1 === 10) {
+                    console.log(team2[i].name, "From Team 2 is up.");
+                    console.log("A STRIKE FOR", team2[i].name);
+                    console.log("That makes a total of", totalPins, "pins knocked over for", team2[i].name);
+                    console.log("");
+                } else if (totalPins == 10) {
+                    console.log(team2[i].name, "From Team 2 is up.");
+                    console.log(team2[i].name, "Threw over", pinsHit1, "on his first throw.");
+                    console.log(team2[i].name, "Threw over", pinsHit2, "on his second throw.");
+                    console.log("A SPARE FOR", team2[i].name);
+                    console.log("That makes a total of", totalPins, "pins knocked over for", team2[i].name);
+                    console.log("");
+                } else if (pinsHit1 <= 9 || pinsHit2 <= 9) {
+                    console.log(team2[i].name, "From Team 2 is up.");
+                    console.log(team2[i].name, "Threw over", pinsHit1, "on his first throw.");
+                    console.log(team2[i].name, "Threw over", pinsHit2, "on his second throw.");
+                    console.log("That makes a total of", totalPins, "pins knocked over for", team2[i].name);
+                    console.log("");
+                }
+            }
+        }
+
+        // hier console log ik alle resultaten
+        console.log("RESULTS:");
+        console.log("");
+        console.log("Team 1:");
+        console.log("Adam", team1[0].score);
+        console.log("Dennis", team1[1].score);
+        console.log("Joey", team1[2].score);
+        console.log("Ryan", team1[3].score);
+        console.log("");
+        console.log("Team 2:");
+        console.log("Tom", team2[0].score);
+        console.log("Afzal", team2[1].score);
+        console.log("Anouar", team2[2].score);
+        console.log("Arevan", team2[3].score);
+
+        console.log("");
+        console.log("END OF THE GAME!!!");
+
+        // deze functie zorgt ervoor dat je een alert krijgt met de naam van de persoon en de score
+        function alertChampion() {
+            var champion = Math.max(team1[0].score, team1[1].score, team1[2].score, team1[3].score, team2[0].score, team2[1].score, team2[2].score, team2[3].score);
+
+            if (champion === 100) {
+                alert("OMG OMG OMG WE GOT A PERFECT GAME OVER HERE!!!");
+            } if (champion === team1[0].score) {
+                alert(team1[0].name + " " + team1[0].score);
+            } if (champion === team1[1].score) {
+                alert(team1[1].name + " " + team1[1].score);
+            } if (champion === team1[2].score) {
+                alert(team1[2].name + " " + team1[2].score);
+            } if (champion === team1[3].score) {
+                alert(team1[3].name + " " + team1[3].score);
+            } if (champion === team2[0].score) {
+                alert(team2[0].name + " " + team2[0].score);
+            } if (champion === team2[1].score) {
+                alert(team2[1].name + " " + team2[1].score);
+            } if (champion === team2[2].score) {
+                alert(team2[2].name + " " + team2[2].score);
+            } if (champion === team2[3].score) {
+                alert(team2[3].name + " " + team2[3].score);
+            }
+        }
+
+        alertChampion()
+
+        // deze funtie kiest een random getal
+        function getRandomPin(pins) {
+            return Math.round(Math.random() * pins);
+        }
+
+        // dit is de tabel
+        document.write('<table border="5" style="background-color: white;"><tr><th>Team 1</th><th>Score</th><th>Team 2</th><th>Score</th></tr>');
+        document.write('<tr><th>' + team1[0].name + '</th><th>' +  team1[0].score + '</th>' + '<th>' + team2[0].name + '</th><th>' +  team2[0].score + '</th></tr>');
+        document.write('<tr><th>' + team1[1].name + '</th><th>' +  team1[1].score + '</th>' + '<th>' + team2[1].name + '</th><th>' +  team2[1].score + '</th></tr>');
+        document.write('<tr><th>' + team1[2].name + '</th><th>' +  team1[2].score + '</th>' + '<th>' + team2[2].name + '</th><th>' +  team2[2].score + '</th></tr>');
+        document.write('<th>' + team1[3].name + '</th><th>' +  team1[3].score + '</th>' + '<th>' + team2[3].name + '</th><th>' +  team2[3].score + '</th></table>');
+	</script>
+</body>
+</html>
